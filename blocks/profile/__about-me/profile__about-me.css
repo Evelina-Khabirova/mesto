@@ -5,3 +5,17 @@
   font-size: 18px;
   line-height: 22px;
 }
+
+@media screen and (max-width: 700px) {
+  .profile__about-me {
+    margin: 14px auto 0;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .profile__about-me {
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+  }
+}
