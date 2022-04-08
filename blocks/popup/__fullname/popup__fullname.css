@@ -1,0 +1,10 @@
+.popup__fullname {
+  margin: 54px 0 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 425px) {
+  .popup__fullname {
+    margin-top: 75px;
+  }
+}
