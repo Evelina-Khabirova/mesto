@@ -1,34 +1,27 @@
-let popupOpenButton = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup');
-let popupCloseButton = popup.querySelector('.popup__close');
-let saveButton = popup.querySelector('.popup__save');
+const popupOpenButton = document.querySelector('.profile__edit-button');
+const popup = document.querySelector('.popup');
+const popupCloseButton = popup.querySelector('.popup__close');
+const saveButton = popup.querySelector('.popup__save');
 let profileFullname = document.querySelector('.profile__fullname');
 let profileAboutMe = document.querySelector('.profile__about-me');
+let fullname = popup.querySelector('.popup__form_fullname');
+let aboutMe = popup.querySelector('.popup__form_about-me');
+let formElement = popup.querySelector('.form');
+
+fullname.value = profileFullname.textContent;
+aboutMe.value = profileAboutMe.textContent;
 
 function openClosePopup() {
   popup.classList.toggle('popup__active');
 }
 
-function onOverlayClick(event) {
-  if (event.target === event.currentTarget) {
-    openClosePopup();
-  }
-}
-
 function changeInformation() {
-  let fullname = popup.querySelector('.popup__fullname');
-  let aboutMe = popup.querySelector('.popup__about-me');
-  profileFullname.innerHTML = `
-    <p class="profile__fullname">${fullname.value}</p>
-  `;
-  profileAboutMe.innerHTML = `
-    <p class="profile__about-me">${aboutMe.value}</p>
-  `;
+  profileFullname.textContent = fullname.value;
+  profileAboutMe.textContent = aboutMe.value;
   openClosePopup();
 }
 
 popupOpenButton.addEventListener('click', openClosePopup);
 popupCloseButton.addEventListener('click', openClosePopup);
-popup.addEventListener('click', onOverlayClick);
 
-saveButton.addEventListener('click', changeInformation);
+formElement.addEventListener('submit', changeInformation);

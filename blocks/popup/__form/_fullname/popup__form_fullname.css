@@ -1,10 +1,10 @@
-.popup__fullname {
+.popup__form_fullname {
   margin: 54px 0 0;
   padding: 0;
 }
 
 @media screen and (max-width: 425px) {
-  .popup__fullname {
+  .popup__form_fullname {
     margin-top: 75px;
   }
 }

@@ -10,63 +10,64 @@
 <body class="page">
   <header class="header">
     <img src="images/logo.svg" alt="Логотип сайта Место" class="header__logo">
-    <div class="header__line"></div>
   </header>
-  <section class="profile">
-    <div class="profile__avatar"></div>
-    <div class="profile__profile-info">
-      <p class="profile__fullname">Жак-Ив Кусто</p>
-      <img src="images/Edit_Button.svg" alt="Кнопка редактирования" class="profile__edit-button">
-      <p class="profile__about-me">Исследователь океана</p>
-    </div>
-    <div class="profile__add-button"></div>
-  </section>
-  <section class="elements">
-    <ul class="elements__cards">
-      <li>
-        <img src="images/Karachayevsk.jpg" alt="Картинка пользователя" class="elements__image">
-        <div class="elements__cards-info">
-          <p class="elements__text">Карачаевск</p>
-          <div class="elements__like-button"></div>
-        </div>
-      </li>
-      <li>
-        <img src="images/Mount_Elbrus.jpg" alt="Картинка пользователя" class="elements__image">
-        <div class="elements__cards-info">
-          <p class="elements__text">Гора Эльбрус</p>
-          <div class="elements__like-button"></div>
-        </div>
-      </li>
-      <li>
-        <img src="images/Dombay.jpg" alt="Картинка пользователя" class="elements__image">
-        <div class="elements__cards-info">
-          <p class="elements__text">Домбай</p>
-          <div class="elements__like-button"></div>
-        </div>
-      </li>
-      <li>
-        <img src="images/Dombay.jpg" alt="Картинка пользователя" class="elements__image">
-        <div class="elements__cards-info">
-          <p class="elements__text">Домбай</p>
-          <div class="elements__like-button"></div>
-        </div>
-      </li>
-      <li>
-        <img src="images/Mount_Elbrus.jpg" alt="Картинка пользователя" class="elements__image">
-        <div class="elements__cards-info">
-          <p class="elements__text">Гора Эльбрус</p>
-          <div class="elements__like-button"></div>
-        </div>
-      </li>
-      <li>
-        <img src="images/Karachayevsk.jpg" alt="Картинка пользователя" class="elements__image">
-        <div class="elements__cards-info">
-          <p class="elements__text">Карачаевск</p>
-          <div class="elements__like-button"></div>
-        </div>
-      </li>
-    </ul>
-  </section>
+  <main>
+    <section class="profile">
+      <div class="profile__avatar"></div>
+      <div class="profile__profile-info">
+        <h1 class="profile__fullname">Жак-Ив Кусто</h1>
+        <button type="button" class="profile__edit-button"></button>
+        <p class="profile__about-me">Исследователь океана</p>
+      </div>
+      <button type="button" class="profile__add-button"></button>
+    </section>
+    <section class="elements">
+      <ul class="cards">
+        <li class="cards__item">
+          <img src="images/Karachayevsk.jpg" alt="Картинка пользователя" class="cards__image">
+          <div class="cards__info">
+            <h2 class="cards__title">Карачаевск</h2>
+            <button type="button" class="cards__like-button"></button>
+          </div>
+        </li>
+        <li class="cards__item">
+          <img src="images/Mount_Elbrus.jpg" alt="Картинка пользователя" class="cards__image">
+          <div class="cards__info">
+            <h2 class="cards__title">Гора Эльбрус</h2>
+            <button type="button" class="cards__like-button"></button>
+          </div>
+        </li>
+        <li class="cards__item">
+          <img src="images/Dombay.jpg" alt="Картинка пользователя" class="cards__image">
+          <div class="cards__info">
+            <h2 class="cards__title">Домбай</h2>
+            <button type="button" class="cards__like-button"></button>
+          </div>
+        </li>
+        <li class="cards__item">
+          <img src="images/Dombay.jpg" alt="Картинка пользователя" class="cards__image">
+          <div class="cards__info">
+            <h2 class="cards__title">Домбай</h2>
+            <button type="button" class="cards__like-button"></button>
+          </div>
+        </li>
+        <li class="cards__item">
+          <img src="images/Mount_Elbrus.jpg" alt="Картинка пользователя" class="cards__image">
+          <div class="cards__info">
+            <h2 class="cards__title">Гора Эльбрус</h2>
+            <button type="button" class="cards__like-button"></button>
+          </div>
+        </li>
+        <li class="cards__item">
+          <img src="images/Karachayevsk.jpg" alt="Картинка пользователя" class="cards__image">
+          <div class="cards__info">
+            <h2 class="cards__title">Карачаевск</h2>
+            <button type="button" class="cards__like-button"></button>
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
   <footer class="footer">
     <p class="footer__author">&copy; 2022 Mesto Russia</p>
   </footer>
@@ -74,9 +75,11 @@
     <div class="popup__content">
       <button class="popup__close" type="button"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
-      <input type="text" placeholder="ФИО" class="popup__form popup__fullname" value="Жак-Ив Кусто">
-      <input type="text" placeholder="О себе" class="popup__form popup__about-me" value="Исследователь океана">
-      <button class="popup__save" type="submit">Сохранить</button>
+      <form class="form" name="profile__information">
+        <input type="text" placeholder="ФИО" type="name" class="popup__form popup__form_fullname" value="Жак-Ив Кусто">
+        <input type="text" placeholder="О себе" type="text" class="popup__form popup__form_about-me" value="Исследователь океана">
+        <button class="popup__save" type="submit">Сохранить</button>
+      </form>
     </div>
   </div>
   <script src="scripts/index.js"></script>

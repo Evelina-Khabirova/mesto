@@ -1,4 +1,5 @@
-.elements__cards-info {
+.cards__info {
+  max-width: 282px;
   margin: 0;
   padding: 25px 15px 30px 20px;
   background-color: #fff;
