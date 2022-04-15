@@ -4,24 +4,28 @@ const popupCloseButton = popup.querySelector('.popup__close');
 const saveButton = popup.querySelector('.popup__save');
 let profileFullname = document.querySelector('.profile__fullname');
 let profileAboutMe = document.querySelector('.profile__about-me');
-let fullname = popup.querySelector('.popup__form_fullname');
-let aboutMe = popup.querySelector('.popup__form_about-me');
-let formElement = popup.querySelector('.form');
+let fullname = popup.querySelector('.popup__input_type_fullname');
+let aboutMe = popup.querySelector('.popup__input_type_about-me');
+let formElement = popup.querySelector('.popup__form');
 
-fullname.value = profileFullname.textContent;
-aboutMe.value = profileAboutMe.textContent;
+function openPopup() {
+  popup.classList.add('popup__active');
+  fullname.value = profileFullname.textContent;
+  aboutMe.value = profileAboutMe.textContent;
+}
 
-function openClosePopup() {
-  popup.classList.toggle('popup__active');
+function closePopup() {
+  popup.classList.remove('popup__active');
 }
 
 function changeInformation() {
   profileFullname.textContent = fullname.value;
   profileAboutMe.textContent = aboutMe.value;
-  openClosePopup();
+  event.preventDefault();
+  closePopup();
 }
 
-popupOpenButton.addEventListener('click', openClosePopup);
-popupCloseButton.addEventListener('click', openClosePopup);
+popupOpenButton.addEventListener('click', openPopup);
+popupCloseButton.addEventListener('click', closePopup);
 
 formElement.addEventListener('submit', changeInformation);
