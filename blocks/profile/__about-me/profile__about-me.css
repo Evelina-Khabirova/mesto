@@ -9,6 +9,13 @@
   max-width: 400px;
 }
 
+@media screen and (max-width: 850px) {
+  .profile__about-me {
+    margin-left: 15px;
+    max-width: 350px;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .profile__about-me {
     margin: 14px auto 0;
