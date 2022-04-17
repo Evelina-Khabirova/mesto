@@ -2,9 +2,7 @@
   background-image: url(../../../images/Add_Button_Small.svg);
   background-repeat: no-repeat;
   background-color: #000;
-  /*
-  background-size: contain;
-  */
+  background-position: right;
   border: none;
   display: inline-block;
   margin: 35px 0 0;
@@ -17,13 +15,6 @@
   opacity: 0.6;
   cursor: pointer;
 }
- /*
-@media screen and (max-width: 800px) {
-  .profile__add-button {
-    width: 100px;
-  }
-}
-*/
 
 @media screen and (max-width: 768px) {
   .profile__add-button {
