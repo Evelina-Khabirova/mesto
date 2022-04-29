@@ -25,21 +25,21 @@ const initialCards = [
   },
 ];
 const popupProfileOpenButton = document.querySelector('.profile__edit-button');
-const popupProfile = document.querySelector('.popup_profile');
-const popupProfileCloseButton = popupProfile.querySelector('.popup_profile_close');
+const popupProfile = document.querySelector('.popup__profile');
+const popupProfileCloseButton = popupProfile.querySelector('.popup__profile_close');
 let profileFullname = document.querySelector('.profile__fullname');
 let profileAboutMe = document.querySelector('.profile__about-me');
 let fullname = popupProfile.querySelector('.popup__input_type_fullname');
 let aboutMe = popupProfile.querySelector('.popup__input_type_about-me');
 let profileFormElement = popupProfile.querySelector('.popup__form_profile');
 const popupAddCardOpenButton = document.querySelector('.profile__add-button');
-const popupAddCard = document.querySelector('.popup_add-card');
-const popupAddCardClose = popupAddCard.querySelector('.popup_add-card_close');
+const popupAddCard = document.querySelector('.popup__add-card');
+const popupAddCardClose = popupAddCard.querySelector('.popup__add-card_close');
 let cardName = popupAddCard.querySelector('.popup__input_type_card-name');
 let cardLink = popupAddCard.querySelector('.popup__input_type_card-link');
 let addCardFormElement = popupAddCard.querySelector('.popup__form_add-card');
-const popupImage = document.querySelector('.popup_fullimage');
-const popupImageCloseButton = popupImage.querySelector('.popup_fullimage_close');
+const popupImage = document.querySelector('.popup__fullimage');
+const popupImageCloseButton = popupImage.querySelector('.popup__fullimage_close');
 const listContainer = document.querySelector('.cards');
 const template = document.querySelector('.create-card');
 
