@@ -82,9 +82,7 @@ function handleAddCardFormSubmit(event) {
       name: cardName.value,
       link: cardLink.value
     };
-  const element = [];
-  element.push(getElement(cardValue));
-  listContainer.prepend(...element);
+  listContainer.prepend(getElement(cardValue));
   event.preventDefault();
   closePopup(popupAddCard);
   addCardFormElement.reset();
