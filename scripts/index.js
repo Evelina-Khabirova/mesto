@@ -52,7 +52,6 @@ function getElement(item) {
   removeButton.addEventListener('click', removeCard);
   const popupImageOpenButton = getElementTemplate.querySelector('.cards__image');
   popupImageOpenButton.addEventListener('click', openPopupImage);
-  popupImageCloseButton.addEventListener('click', () => closePopup(popupImage));
   const likeButton = getElementTemplate.querySelector('.cards__like-button');
   likeButton.addEventListener('click', activeLike);
   return getElementTemplate;
@@ -78,15 +77,14 @@ function changeInformation(event) {
   closePopup(popupProfile);
 }
 
-function newCard(event) {
-  const cardValue = [
-    {
+function handleAddCardFormSubmit(event) {
+  const cardValue = {
       name: cardName.value,
       link: cardLink.value
-    }
-  ];
-  const elemet = cardValue.map(getElement);
-  listContainer.prepend(...elemet);
+    };
+  const element = [];
+  element.push(getElement(cardValue));
+  listContainer.prepend(...element);
   event.preventDefault();
   closePopup(popupAddCard);
   addCardFormElement.reset();
@@ -101,5 +99,6 @@ profileFormElement.addEventListener('submit', changeInformation);
 popupAddCardOpenButton.addEventListener('click', () => openPopup(popupAddCard));
 popupAddCardClose.addEventListener('click', () => closePopup(popupAddCard));
 
-addCardFormElement.addEventListener('submit', newCard);
+addCardFormElement.addEventListener('submit', handleAddCardFormSubmit);
 
+popupImageCloseButton.addEventListener('click', () => closePopup(popupImage));
