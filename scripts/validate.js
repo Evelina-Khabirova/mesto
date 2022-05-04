@@ -18,7 +18,12 @@ function setSubmitButtonState (isFormValid, button, input) {
     button.classList.add('popup__save_disabled');
     const errorNode = document.querySelector(`#${input.id}-error`);
     errorNode.classList.add('popup__error_active');
-    errorNode.textContent = 'Вы пропустили это поле.';
+    if (errorNode.id === 'card-link-input-error') {
+      errorNode.textContent = 'Введите адрес сайта.';
+    }
+    else {
+      errorNode.textContent = 'Вы пропустили это поле.';
+    }
     input.classList.add('popup__input_error');
   }
 }
