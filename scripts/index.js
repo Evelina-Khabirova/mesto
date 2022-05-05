@@ -11,6 +11,14 @@ const popupImageCloseButton = popupImage.querySelector('.popup__close_fullimage'
 const listContainer = document.querySelector('.cards');
 const template = document.querySelector('.create-card');
 const popupActive = document.querySelector('.popup__active');
+const formProfile = document.forms.profile;
+const formCard = document.forms.card;
+const inputFullname = formProfile.elements.fullname;
+const inputAboutMe = formProfile.elements.about_me;
+const inputCardName = formCard.elements.card_name;
+const inputCardLink = formCard.elements.card_link;
+const saveButtonProfile = formProfile.elements.save_profile;
+const saveButtonCard = formCard.elements.save_card;
 
 function render() {
   const htmlListContainer = initialCards.map(getElement);
@@ -21,12 +29,10 @@ render();
 
 function removeCard(evt) {
   const element = evt.target.closest('.cards__item');
-  console.log(element);
   element.remove();
 }
 
 function handleEscUp (evt) {
-  evt.preventDefault();
   if(evt.key === 'Escape') {
     const activePopup = document.querySelector('.popup__active');
     closePopup(activePopup);
@@ -39,10 +45,11 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
+  document.removeEventListener('keyup', handleEscUp);
   popup.classList.remove('popup__active');
 }
 
-function activeLike(evt) {
+function handleLikeCard(evt) {
   const like = evt.target;
   like.classList.toggle('cards__like-button-active');
 }
@@ -59,7 +66,7 @@ function getElement(item) {
   const popupImageOpenButton = getElementTemplate.querySelector('.cards__image');
   popupImageOpenButton.addEventListener('click', openPopupImage);
   const likeButton = getElementTemplate.querySelector('.cards__like-button');
-  likeButton.addEventListener('click', activeLike);
+  likeButton.addEventListener('click', handleLikeCard);
   return getElementTemplate;
 }
 
@@ -85,7 +92,6 @@ function changeInformation(event) {
   profileFullname.textContent = inputFullname.value;
   profileAboutMe.textContent = inputAboutMe.value;
   closePopup(popupProfile);
-  setSubmitButtonState(false);
 }
 
 function handleAddCardFormSubmit(event) {
@@ -97,6 +103,8 @@ function handleAddCardFormSubmit(event) {
   event.preventDefault();
   closePopup(popupAddCard);
   formCard.reset();
+  saveButtonCard.setAttribute('disabled', true); 
+  saveButtonCard.classList.add('popup__save_disabled');
 }
 
 popupProfileOpenButton.addEventListener('click', openPopupProfile);
