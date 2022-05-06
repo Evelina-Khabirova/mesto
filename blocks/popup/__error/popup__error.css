@@ -1,5 +1,6 @@
 .popup__error {
-  height: 12px;
+  display: block;
+  height: 30px;
   margin: 5px 0 0;
   color: #fff;
   font-family: 'Inter';

@@ -104,7 +104,7 @@ function handleAddCardFormSubmit(event) {
   closePopup(popupAddCard);
   formCard.reset();
   saveButtonCard.setAttribute('disabled', true); 
-  saveButtonCard.classList.add('popup__save_disabled');
+  saveButtonCard.classList.add('popup__button_disabled');
 }
 
 popupProfileOpenButton.addEventListener('click', openPopupProfile);
