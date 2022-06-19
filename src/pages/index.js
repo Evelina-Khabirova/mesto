@@ -1,25 +1,20 @@
-import '../pages/index.css'
-import { initialCards } from './cards.js'
-import { Card } from './Card.js'
-import { FormValidator } from './FormValidator.js'
-import { Section } from './Section.js'
-import { PopupWithImage } from './PopupWithImage.js'
-import { PopupWithForm } from './PopupWithForm.js' 
-import { Popup } from './Popup.js'
-import { UserInfo } from './UserInfo.js'
+import './index.css'
+import { initialCards } from '../cards.js'
+import { Card } from '../components/Card.js'
+import { FormValidator } from '../components/FormValidator.js'
+import { Section } from '../components/Section.js'
+import { PopupWithImage } from '../components/PopupWithImage.js'
+import { PopupWithForm } from '../components/PopupWithForm.js' 
+import { UserInfo } from '../components/UserInfo.js'
 
 const listContainer = document.querySelector('.cards');
 
 const popupProfileOpenButton = document.querySelector('.profile__edit-button');
-const popupProfile = document.querySelector('.popup_profile');
-const profileFullname = document.querySelector('.profile__fullname');
-const profileAboutMe = document.querySelector('.profile__about-me');
 const popupAddCardOpenButton = document.querySelector('.profile__add-button');
-const popupAddCard = document.querySelector('.popup_add-card');
 const formProfile = document.forms.profile;
 const inputFullname = formProfile.elements.fullname;
 const inputAboutMe = formProfile.elements.about_me;
-const popupFullimage = document.querySelector('.popup_fullimage');
+const formCard = document.forms.card;
 
 const config = {
   formSelector: '.popup__form',
@@ -43,30 +38,28 @@ const enableValidation = (config) => {
 }
 enableValidation(config);
 
-const profileInformation = new UserInfo(profileFullname, profileAboutMe);
+const profileInformation = new UserInfo('.profile__fullname', '.profile__about-me');
 
 function openPopupProfile() {
   const popupUser = profileInformation.getUserInfo();
   inputFullname.value = popupUser.fullname;
   inputAboutMe.value = popupUser.aboutMe
-  const openPopup = new Popup(popupProfile);
-  openPopup.open();
+  const changeInformation = new PopupWithForm('.popup_profile', 
+    {submitButton: (inputValue) => {
+      profileInformation.setUserInfo(inputValue['fullname'], inputValue['about_me']);
+    }
+  });
+  changeInformation.open();
+  formValidators['profile'].resetValidation();
+  changeInformation.setEventListeners();
 }
 
 popupProfileOpenButton.addEventListener('click', openPopupProfile);
 
-const changeInformation = new PopupWithForm(popupProfile, 
-  {submitButton: (inputValue) => {
-    profileInformation.setUserInfo(inputValue['fullname'], inputValue['about_me']);
-    formValidators['profile'].resetValidation();
-  }
-});
-
-changeInformation.setEventListeners();
-
-function handleCardClick(evt) {
-  const openPopup = new PopupWithImage(popupFullimage);
-  openPopup.open(evt);
+function handleCardClick(name, link) {
+  const cardElement = new PopupWithImage('.popup_fullimage');
+  cardElement.open(name, link);
+  cardElement.setEventListeners();
 }
 
 function createCard(item) {
@@ -77,32 +70,31 @@ function createCard(item) {
 
 const addInitialCards = new Section({
   items: initialCards,
-  renderer:(items) => {
-    items.forEach((item) => {
-      const cardElement = createCard(item);
-      addInitialCards.setItem(cardElement);
-    });
+  renderer:(item) => {
+    const cardElement = createCard(item);
+    addInitialCards.setItem(cardElement);
   }
 }, listContainer);
 
 addInitialCards.addItem();
 
-const handleAddCardFormSubmit = new PopupWithForm(popupAddCard,
+const handleAddCardFormSubmit = new PopupWithForm('.popup_add-card',
   {submitButton: (inputValue) => {
     const newCard = new Section({
-      items: inputValue,
+      items: [inputValue],
       renderer:(item) => {
         const cardElement = createCard(item);
         newCard.setItem(cardElement);
       }
     }, listContainer);
     newCard.addItem();
+    formCard.reset();
   }
 });
 
 handleAddCardFormSubmit.setEventListeners();
 
 popupAddCardOpenButton.addEventListener('click', () => {
-  const openPopup = new Popup(popupAddCard);
-  openPopup.open();
+  handleAddCardFormSubmit.open();
+  formValidators['card'].resetValidation();
 });

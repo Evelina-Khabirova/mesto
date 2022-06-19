@@ -1,12 +1,12 @@
 export class Popup {
   constructor(popup) {
-    this._popup = popup;
+    this._popup = document.querySelector(popup);
+    this._handleEscUp = this._handleEscUp.bind(this);
   }
 
   _handleEscUp(evt) {
     if(evt.key === 'Escape') {
-      const activePopup = document.querySelector('.popup__active');
-      this.close(activePopup);
+      this.close();
     }
   }
 
@@ -22,9 +22,8 @@ export class Popup {
   }
 
   open() {
-    document.addEventListener('keyup',(evt) => this._handleEscUp(evt));
+    document.addEventListener('keyup', this._handleEscUp);
     this._popup.classList.add('popup__active');
-    this.setEventListeners();
   }
 
   close() {
