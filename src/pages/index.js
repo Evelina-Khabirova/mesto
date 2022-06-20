@@ -40,24 +40,27 @@ enableValidation(config);
 
 const profileInformation = new UserInfo('.profile__fullname', '.profile__about-me');
 
+const changeInformation = new PopupWithForm('.popup_profile', 
+    {submitButton: (inputValue) => {
+      profileInformation.setUserInfo(inputValue['fullname'], inputValue['about_me']);
+    }
+});
+
+changeInformation.setEventListeners();
+
 function openPopupProfile() {
   const popupUser = profileInformation.getUserInfo();
   inputFullname.value = popupUser.fullname;
   inputAboutMe.value = popupUser.aboutMe
-  const changeInformation = new PopupWithForm('.popup_profile', 
-    {submitButton: (inputValue) => {
-      profileInformation.setUserInfo(inputValue['fullname'], inputValue['about_me']);
-    }
-  });
   changeInformation.open();
   formValidators['profile'].resetValidation();
-  changeInformation.setEventListeners();
 }
 
 popupProfileOpenButton.addEventListener('click', openPopupProfile);
 
+const cardElement = new PopupWithImage('.popup_fullimage');
+
 function handleCardClick(name, link) {
-  const cardElement = new PopupWithImage('.popup_fullimage');
   cardElement.open(name, link);
   cardElement.setEventListeners();
 }
@@ -68,33 +71,27 @@ function createCard(item) {
   return cardElement;
 }
 
-const addInitialCards = new Section({
+const cardSection = new Section({
   items: initialCards,
   renderer:(item) => {
     const cardElement = createCard(item);
-    addInitialCards.setItem(cardElement);
+    cardSection.setItem(cardElement);
   }
 }, listContainer);
 
-addInitialCards.addItem();
+cardSection.addItem();
 
-const handleAddCardFormSubmit = new PopupWithForm('.popup_add-card',
+const addCardFormSubmit = new PopupWithForm('.popup_add-card',
   {submitButton: (inputValue) => {
-    const newCard = new Section({
-      items: [inputValue],
-      renderer:(item) => {
-        const cardElement = createCard(item);
-        newCard.setItem(cardElement);
-      }
-    }, listContainer);
-    newCard.addItem();
+    const card = createCard(inputValue);
+    cardSection.setItem(card);
     formCard.reset();
   }
 });
 
-handleAddCardFormSubmit.setEventListeners();
+addCardFormSubmit.setEventListeners();
 
 popupAddCardOpenButton.addEventListener('click', () => {
-  handleAddCardFormSubmit.open();
+  addCardFormSubmit.open();
   formValidators['card'].resetValidation();
 });
