@@ -1,5 +1,4 @@
 import './index.css'
-//import { initialCards } from '../cards.js'
 import { Card } from '../components/Card.js'
 import { FormValidator } from '../components/FormValidator.js'
 import { Section } from '../components/Section.js'
@@ -39,7 +38,7 @@ const enableValidation = (config) => {
 }
 enableValidation(config);
 
-const api = new Api('https://mesto.nomoreparties.co/v1/cohortId/cards');
+const api = new Api('https://mesto.nomoreparties.co/v1/cohort-43/cards');
 api.getInitialCards()
   .then((initialCards) => {
     const cardSection = new Section({
