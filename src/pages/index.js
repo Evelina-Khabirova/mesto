@@ -57,8 +57,6 @@ apiCards.getInitialCards()
 
 const apiEditProfile = new Api('https://mesto.nomoreparties.co/v1/cohort-43/users/me ');
 
-const apiAddCard = new Api('https://mesto.nomoreparties.co/v1/cohort-43/cards ');
-
 const profileInformation = new UserInfo('.profile__fullname', '.profile__about-me');
 
 const changeInformation = new PopupWithForm('.popup_profile', 
@@ -94,10 +92,12 @@ function createCard(item) {
 
 const addCardFormSubmit = new PopupWithForm('.popup_add-card',
   {submitButton: (inputValue) => {
-    apiAddCard.addCard(inputValue.name, inputValue.link)
+    apiCards.addCard(inputValue.name, inputValue.link)
       .then((res) => {
         const card = createCard(res);
-        console.log(res);
+        console.log(inputValue);
+        console.log(inputValue.name);
+        console.log(inputValue.link);
         cardSection.setItem(card);
       })
       .catch((err) => console.log(err));
