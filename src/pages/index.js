@@ -39,7 +39,7 @@ const enableValidation = (config) => {
 enableValidation(config);
 
 const apiCards = new Api('https://mesto.nomoreparties.co/v1/cohort-43/cards');
-apiCrads.getInitialCards()
+apiCards.getInitialCards()
   .then((initialCards) => {
     const cardSection = new Section({
       items: initialCards,
