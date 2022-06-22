@@ -38,8 +38,8 @@ const enableValidation = (config) => {
 }
 enableValidation(config);
 
-const api = new Api('https://mesto.nomoreparties.co/v1/cohort-43/cards');
-api.getInitialCards()
+const apiCards = new Api('https://mesto.nomoreparties.co/v1/cohort-43/cards');
+apiCrads.getInitialCards()
   .then((initialCards) => {
     const cardSection = new Section({
       items: initialCards,
@@ -54,6 +54,10 @@ api.getInitialCards()
   .catch((err) => {
     console.log(err);
   });
+
+const apiEditProfile = new Api('https://mesto.nomoreparties.co/v1/cohort-43/users/me ');
+
+const apiAddCard = new Api('https://mesto.nomoreparties.co/v1/cohort-43/cards ');
 
 const profileInformation = new UserInfo('.profile__fullname', '.profile__about-me');
 
@@ -90,8 +94,13 @@ function createCard(item) {
 
 const addCardFormSubmit = new PopupWithForm('.popup_add-card',
   {submitButton: (inputValue) => {
-    const card = createCard(inputValue);
-    cardSection.setItem(card);
+    apiAddCard.addCard(inputValue.name, inputValue.link)
+      .then((res) => {
+        const card = createCard([res]);
+        console.log(res);
+        cardSection.setItem(card);
+      })
+      .catch((err) => console.log(err));
     formCard.reset();
   }
 });
