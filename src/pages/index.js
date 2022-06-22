@@ -96,7 +96,7 @@ const addCardFormSubmit = new PopupWithForm('.popup_add-card',
   {submitButton: (inputValue) => {
     apiAddCard.addCard(inputValue.name, inputValue.link)
       .then((res) => {
-        const card = createCard([res]);
+        const card = createCard(res);
         console.log(res);
         cardSection.setItem(card);
       })
