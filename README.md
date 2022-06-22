@@ -13,4 +13,4 @@
 
 **Ссылка**
 
-* [Ссылка на сайт проекта](https://evelina-khabirova.github.io/mesto/index.html)
+* [Ссылка на сайт проекта](https://evelina-khabirova.github.io/mesto/)
