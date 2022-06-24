@@ -8,7 +8,7 @@ export class Api {
   }
 
   getInitialCards() {
-    return fetch(this._options, {
+    return fetch(`${this._options}/cards`, {
       method: 'GET',
       headers: this._headers
     })
@@ -17,18 +17,29 @@ export class Api {
           return res.json();
         }
         return Promise.reject('Возникла ошибка');
-      })
-      .then((result) => {
-        console.log(result);
       });
   }
 
+  identificationProfile() {
+    return fetch(`${this.options}/users/me`, {
+      method: 'GET',
+      headers: this._headers
+    })
+    .then((res) => {
+      if(res.ok){
+        return res.json();
+      }
+      return Promise.reject('Возникла ошибка');
+    })
+  }
+
+  /*
   editProfile(fullnameProfile, aboutProfile) {
     return fetch(this._options, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
-        fullname: nameProfile,
+        fullname: fullnameProfile,
         about: aboutProfile
       })
     })
@@ -37,14 +48,38 @@ export class Api {
         return res.json();
       }
       return Promise.reject('Возникла ошибка');
-    })
-    .then((result) => {
-      console.log(result);
     });
   }
-
+  */
+  setLike(cardId) {
+    return fetch(`${this.options}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: this._headers
+    })
+    .then((res) => {
+      if(res.ok){
+        return res.json();
+      }
+      //return console.log(`${this.options}cards/${cardId}/likes`);
+      return Promise.reject('Возникла ошибка');
+    });
+  }
+  /*
+  deleteLike(cardId) {
+    return fetch(`${this.options}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then((res) => {
+      if(res.ok){
+        return res.json();
+      }
+      return Promise.reject('Возникла ошибка');
+    });
+  }
+  */
   addCard(cardName, cardLink) {
-    return fetch(this._options, {
+    return fetch(`${this._options}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({

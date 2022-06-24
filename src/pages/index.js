@@ -15,6 +15,8 @@ const formProfile = document.forms.profile;
 const inputFullname = formProfile.elements.fullname;
 const inputAboutMe = formProfile.elements.about_me;
 const formCard = document.forms.card;
+const profileFullname = document.querySelector('.profile__fullname');
+
 
 const config = {
   formSelector: '.popup__form',
@@ -38,26 +40,32 @@ const enableValidation = (config) => {
 }
 enableValidation(config);
 
-const apiCards = new Api('https://mesto.nomoreparties.co/v1/cohort-43/cards');
-apiCards.getInitialCards()
-  .then((initialCards) => {
-    const cardSection = new Section({
-      items: initialCards,
-      renderer:(item) => {
-        const cardElement = createCard(item);
-        cardSection.setItem(cardElement);
-      }
-    }, listContainer);
-    
-    cardSection.addItem();
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+const api = new Api('https://mesto.nomoreparties.co/v1/cohort-43');
 
-const apiEditProfile = new Api('https://mesto.nomoreparties.co/v1/cohort-43/users/me ');
+//инфа о пользователе
 
-const profileInformation = new UserInfo('.profile__fullname', '.profile__about-me');
+const profileInformation = new UserInfo('.profile__fullname', '.profile__about-me', '.profile__avatar');
+
+const cardSection = new Section({
+  renderer:(item) => {
+    const cardElement = createCard(item);
+    cardSection.setItem(cardElement);
+  }
+}, listContainer);
+
+api.identificationProfile()
+.then((res) => {
+  console.log('Profile', res);
+  profileInformation.getUserInfoId(res);
+  
+})
+.catch((err) => console.log(err));
+
+api.getInitialCards()
+.then((res) => {
+  cardSection.addItem(res);
+})
+.catch((err) => console.log(err));
 
 const changeInformation = new PopupWithForm('.popup_profile', 
     {submitButton: (inputValue) => {
@@ -85,20 +93,29 @@ function handleCardClick(name, link) {
 }
 
 function createCard(item) {
-  const card = new Card(item, '.create-card', handleCardClick);
+  const card = new Card(item, '.create-card', handleCardClick, profileFullname.id, {
+    handleLike: (cardId) => {
+      api.setLike(cardId._id)
+      .then((res) => {
+        card.setLikeCounter(res);
+      })
+      .catch((err) => console.log(err));
+      }});
   const cardElement = card.generateCard();
   return cardElement;
 }
 
 const addCardFormSubmit = new PopupWithForm('.popup_add-card',
   {submitButton: (inputValue) => {
-    apiCards.addCard(inputValue.name, inputValue.link)
+    api.addCard(inputValue.name, inputValue.link)
       .then((res) => {
-        const card = createCard(res);
-        console.log(inputValue);
-        console.log(inputValue.name);
-        console.log(inputValue.link);
-        cardSection.setItem(card);
+        const cardSection = new Section({
+          items: res,
+          renderer:(res) => {
+            const cardElement = createCard(res);
+            cardSection.setItem(cardElement);
+          }
+        }, listContainer);
       })
       .catch((err) => console.log(err));
     formCard.reset();

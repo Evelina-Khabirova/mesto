@@ -1,4 +1,5 @@
 .cards__like-counter {
+  margin: 3px auto 0;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;
