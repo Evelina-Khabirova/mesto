@@ -46,6 +46,8 @@ const api = new Api('https://mesto.nomoreparties.co/v1/cohort-43');
 
 const profileInformation = new UserInfo('.profile__fullname', '.profile__about-me', '.profile__avatar');
 
+//создание секции карточки
+
 const cardSection = new Section({
   renderer:(item) => {
     const cardElement = createCard(item);
@@ -53,13 +55,16 @@ const cardSection = new Section({
   }
 }, listContainer);
 
+//запрос айпи информации по профилю
+
 api.identificationProfile()
 .then((res) => {
-  console.log('Profile', res);
   profileInformation.getUserInfoId(res);
   
 })
 .catch((err) => console.log(err));
+
+//запрос айпи информации по карточкам
 
 api.getInitialCards()
 .then((res) => {
@@ -67,9 +72,20 @@ api.getInitialCards()
 })
 .catch((err) => console.log(err));
 
+//сменить данные профиля
+
 const changeInformation = new PopupWithForm('.popup_profile', 
     {submitButton: (inputValue) => {
       profileInformation.setUserInfo(inputValue['fullname'], inputValue['about_me']);
+      changeInformation.changeText();
+      api.editProfile(inputValue['fullname'], inputValue['about_me'])
+      .then((res) => {
+        console.log(res);
+        changeInformation.close();
+        profileInformation.setUserInfo(res.name, res.about);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => changeInformation.addTextButton('Сохранить'))
     }
 });
 

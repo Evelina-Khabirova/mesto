@@ -3,7 +3,7 @@ export class Api {
     this._options = options;
     this._headers = {
       'Content-type': 'application/json',
-      'authorization': 'f14481c5-e77c-456f-a863-20543b32692f'
+      authorization: 'f14481c5-e77c-456f-a863-20543b32692f'
     }
   }
 
@@ -21,7 +21,7 @@ export class Api {
   }
 
   identificationProfile() {
-    return fetch(`${this.options}/users/me`, {
+    return fetch(`${this._options}/users/me`, {
       method: 'GET',
       headers: this._headers
     })
@@ -33,24 +33,28 @@ export class Api {
     })
   }
 
-  /*
+  
   editProfile(fullnameProfile, aboutProfile) {
-    return fetch(this._options, {
+    return fetch(`${this._options}/users/me`, {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
-        fullname: fullnameProfile,
+        name: fullnameProfile,
         about: aboutProfile
       })
     })
     .then((res) => {
+      console.log(`${this._options}/users/me`);
       if(res.ok){
         return res.json();
       }
       return Promise.reject('Возникла ошибка');
+    })
+    .then((result) => {
+      return result;
     });
   }
-  */
+  
   setLike(cardId) {
     return fetch(`${this.options}/cards/${cardId}/likes`, {
       method: 'PUT',

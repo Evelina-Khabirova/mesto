@@ -19,7 +19,6 @@ export class UserInfo {
   }
   
   getUserInfoId(userInfo) {
-    console.log(userInfo._id);
     this._nameProfile.id = userInfo._id;
     this._nameProfile.textContent = userInfo.fullname;
     this._aboutProfile.textContent = userInfo.aboutMe;

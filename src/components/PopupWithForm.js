@@ -29,4 +29,12 @@ export class PopupWithForm extends Popup {
     super.close();
     this._form.reset();
   }
+
+  changeText() {
+    this._submitButton.textContent = 'Сохранение...';
+  }
+
+  addTextButton(textButton) {
+    this._submitButton.textContent = textButton;
+  }
 }
