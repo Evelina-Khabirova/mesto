@@ -1,4 +1,4 @@
-export class Popup {
+export default class Popup {
   constructor(popup) {
     this._popup = document.querySelector(popup);
     this._handleEscUp = this._handleEscUp.bind(this);

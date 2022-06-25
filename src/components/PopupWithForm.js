@@ -1,6 +1,6 @@
-import { Popup } from './Popup.js'
+import Popup from './Popup.js'
 
-export class PopupWithForm extends Popup {
+export default class PopupWithForm extends Popup {
   constructor(popup, {submitButton}) {
     super(popup);
     this._submitButton = submitButton;
@@ -30,11 +30,7 @@ export class PopupWithForm extends Popup {
     this._form.reset();
   }
 
-  changeText() {
+  changeTextButton() {
     this._submitButton.textContent = 'Сохранение...';
-  }
-
-  addTextButton(textButton) {
-    this._submitButton.textContent = textButton;
   }
 }

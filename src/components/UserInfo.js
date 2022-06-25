@@ -1,4 +1,4 @@
-export class UserInfo {
+export default class UserInfo {
   constructor(nameProfile, aboutProfile, avatarProfile) {
     this._nameProfile = document.querySelector(nameProfile);
     this._aboutProfile = document.querySelector(aboutProfile);
@@ -18,16 +18,18 @@ export class UserInfo {
     this._aboutProfile.textContent = aboutMe;
   }
   
-  getUserInfoId(userInfo) {
-    this._nameProfile.id = userInfo._id;
-    this._nameProfile.textContent = userInfo.fullname;
-    this._aboutProfile.textContent = userInfo.aboutMe;
-    //this._avatarProfile.style.backgroundImage = `url(${userInfo.avatar})`;
+  checkUserId() {
+    return this._nameProfile.id;
   }
-  
-  /*
-  setUserAvatar(userAvatar) {
+
+  getUserInfoServer(userInfo) {
+    this._nameProfile.id = userInfo._id;
+    this._nameProfile.textContent = userInfo.name;
+    this._aboutProfile.textContent = userInfo.about;
     this._avatarProfile.style.backgroundImage = `url(${userInfo.avatar})`;
   }
-  */
+  
+  setUserAvatar(userAvatar) {
+    this._avatarProfile.style.backgroundImage = `url(${userAvatar.avatar})`;
+  }
 }

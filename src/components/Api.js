@@ -1,4 +1,4 @@
-export class Api {
+export default class Api {
   constructor(options) {
     this._options = options;
     this._headers = {
@@ -7,16 +7,20 @@ export class Api {
     }
   }
 
+  _handleErrors(res) {
+    if(res.ok){
+      return res.json();
+    }
+    return Promise.reject('Возникла ошибка');
+  }
+
   getInitialCards() {
     return fetch(`${this._options}/cards`, {
       method: 'GET',
       headers: this._headers
     })
       .then((res) => {
-        if(res.ok){
-          return res.json();
-        }
-        return Promise.reject('Возникла ошибка');
+        return this._handleErrors(res);
       });
   }
 
@@ -26,62 +30,57 @@ export class Api {
       headers: this._headers
     })
     .then((res) => {
-      if(res.ok){
-        return res.json();
-      }
-      return Promise.reject('Возникла ошибка');
+      return this._handleErrors(res);
     })
   }
 
-  
+  editAvatar(profileAvatar) {
+    return fetch(`${this._options}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: profileAvatar
+      })
+    })
+    .then((res) => {
+      return this._handleErrors(res);
+    });
+  }
+
   editProfile(fullnameProfile, aboutProfile) {
     return fetch(`${this._options}/users/me`, {
       method: 'PATCH',
-      headers: this.headers,
+      headers: this._headers,
       body: JSON.stringify({
         name: fullnameProfile,
         about: aboutProfile
       })
     })
     .then((res) => {
-      console.log(`${this._options}/users/me`);
-      if(res.ok){
-        return res.json();
-      }
-      return Promise.reject('Возникла ошибка');
-    })
-    .then((result) => {
-      return result;
+      return this._handleErrors(res);
     });
   }
   
-  setLike(cardId) {
-    return fetch(`${this.options}/cards/${cardId}/likes`, {
+  addLike(cardId) {
+    return fetch(`${this._options}/cards/${cardId}/likes`, {
       method: 'PUT',
       headers: this._headers
     })
     .then((res) => {
-      if(res.ok){
-        return res.json();
-      }
-      //return console.log(`${this.options}cards/${cardId}/likes`);
-      return Promise.reject('Возникла ошибка');
+      return this._handleErrors(res);
     });
   }
-  /*
+  
   deleteLike(cardId) {
-    return fetch(`${this.options}/cards/${cardId}/likes`, {
+    return fetch(`${this._options}/cards/${cardId}/likes`, {
       method: 'DELETE',
       headers: this._headers
     })
     .then((res) => {
-      if(res.ok){
-        return res.json();
-      }
-      return Promise.reject('Возникла ошибка');
+      return this._handleErrors(res);
     });
   }
-  */
+
   addCard(cardName, cardLink) {
     return fetch(`${this._options}/cards`, {
       method: 'POST',
@@ -92,10 +91,17 @@ export class Api {
       })
     })
       .then((res) => {
-        if(res.ok){
-          return res.json();
-        }
-        return Promise.reject('Возникла ошибка');
+        return this._handleErrors(res);
+      });
+  }
+
+  deleteCard(cardId) {
+    return fetch(`${this._options}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    })
+      .then((res) => {
+        return this._handleErrors(res);
       });
   }
 }

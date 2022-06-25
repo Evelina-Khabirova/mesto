@@ -1,45 +1,52 @@
-export class Card {
-  constructor(data, cardSelector, handleCardClick, profileInfo, {handleLike}) {
+export default class Card {
+  constructor(data, cardSelector, handleCardClick, profileID, {handleLike}, {removeLike}, {removeCard}) {
     this._data = data;
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
     this._template = document.querySelector(this._cardSelector); 
+    this._profileID = profileID;
     this._handleCardClick = handleCardClick;
-    this._profileInfo = profileInfo;
     this._handleLike = handleLike;
+    this._removeLike = removeLike;
+    this._removeCard = removeCard;
   }
 
-  _removeCard() {
+  removeCardImage() {
     this._element.remove();
+    this._element = null;
   }
   
   _checkLikeId() {
-    this._data.likes.forEach((el) => {
-      if(el._id === this._profileInfo) {
+    this._likeCounter.textContent = this._data.likes.length;
+    this._data.likes.forEach((elem) => {
+      if(elem._id === this._profileID) {
         this._likeButton.classList.add('cards__like-button-active');
       }
     });
   }
 
   setLikeCounter(cardItem) {
-    console.log(cardItem.likes.length);
     this._likeCounter.textContent = cardItem.likes.length;
     this._likeButton.classList.add('cards__like-button-active');
   }
-  /*
-  removeLike(cardItem) {
+  
+  removeLikeCounter(cardItem) {
+    this._likeCounter.textContent = cardItem.likes.length;
     this._likeButton.classList.remove('cards__like-button-active');
   }
-  */
-  _handleLikeCard() {
+  
+  _toggleLikeCard() {
     if(!this._likeButton.classList.contains('cards__like-button-active')) {
-      this._handleLike(this._element);
+      this._handleLike();
     }
     else {
-      console.log('remove');
+      this._removeLike();
     }
-    //this._likeButton.classList.toggle('cards__like-button-active');
+  }
+
+  _removeTrashButton() {
+    this._trashButton.remove(); 
   }
 
   _getElement() {
@@ -48,8 +55,11 @@ export class Card {
   }
 
   _setEventListeners() {
+    if (this._data.owner._id !== this._profileID) {
+      this._removeTrashButton();
+    }
     this._trashButton.addEventListener('click', () => {this._removeCard()});
-    this._likeButton.addEventListener('click', () => {this._handleLikeCard()});
+    this._likeButton.addEventListener('click', () => {this._toggleLikeCard()});
     this._image.addEventListener('click', () => {
       this._handleCardClick(this._name, this._link);
     });
