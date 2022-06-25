@@ -13,23 +13,28 @@ export default class UserInfo {
     return this._user;
   }
 
-  setUserInfo(fullname, aboutMe) {
-    this._nameProfile.textContent = fullname;
-    this._aboutProfile.textContent = aboutMe;
+  setUserInfo(userInfo) {
+    if(userInfo.name) {
+      this._nameProfile.textContent = userInfo.name;
+    }
+    if(userInfo.about) {
+      this._aboutProfile.textContent = userInfo.about;
+    }
+    if(userInfo._id) {
+      this._userId = userInfo._id;
+    }
+    if(userInfo.avatar) {
+      this._avatarProfile.style.backgroundImage = `url(${userInfo.avatar})`;
+    }
   }
   
-  checkUserId() {
-    return this._nameProfile.id;
-  }
-
-  getUserInfoServer(userInfo) {
-    this._nameProfile.id = userInfo._id;
-    this._nameProfile.textContent = userInfo.name;
-    this._aboutProfile.textContent = userInfo.about;
-    this._avatarProfile.style.backgroundImage = `url(${userInfo.avatar})`;
+  getUserId() {
+    return this._userId;
   }
   
   setUserAvatar(userAvatar) {
-    this._avatarProfile.style.backgroundImage = `url(${userAvatar.avatar})`;
+    if(userAvatar) {
+      this._avatarProfile.style.backgroundImage = `url(${userAvatar.avatar})`;
+    }
   }
 }
